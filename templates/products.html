@@ -1,0 +1,103 @@
+
+{% extends "base.html" %}
+
+{% block title %}Mahsulotlar | Ombor Pro{% endblock %}
+{% block heading %}Mahsulotlar boshqaruvi{% endblock %}
+
+{% block content %}
+
+<div class="panel mb-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div>
+            <h5 class="text-warning">Barcha mahsulotlar</h5>
+            <p class="text-muted mb-0">Ombordagi mahsulotlarni boshqarish</p>
+        </div>
+
+        <a href="{{ url_for('add_product') }}" class="btn btn-gold">
+            <i class="bi bi-plus-circle me-2"></i>Mahsulot qo'shish
+        </a>
+    </div>
+
+    <form method="GET" action="{{ url_for('products') }}" class="mt-4">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control"
+                   placeholder="Mahsulot nomini qidiring..."
+                   value="{{ search }}">
+            <button class="btn btn-gold" type="submit">
+                <i class="bi bi-search"></i> Qidirish
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="panel">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Mahsulot nomi</th>
+                    <th>Kategoriya</th>
+                    <th>Miqdor</th>
+                    <th>Minimal qoldiq</th>
+                    <th>Narxi</th>
+                    <th>Umumiy qiymat</th>
+                    <th>Holati</th>
+                    <th>Amallar</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for p in products %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td class="fw-bold">{{ p.name }}</td>
+                    <td>{{ p.category }}</td>
+                    <td>{{ p.quantity }} dona</td>
+                    <td>{{ p.min_stock }}</td>
+                    <td>{{ "{:,.0f}".format(p.price) }} so'm</td>
+                    <td>{{ "{:,.0f}".format(p.quantity * p.price) }} so'm</td>
+
+                    <td>
+                        {% if p.quantity <= p.min_stock %}
+                            <span class="badge bg-danger">Kam qoldi</span>
+                        {% else %}
+                            <span class="badge bg-success">Yetarli</span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        <div class="d-flex gap-2">
+                            <a href="{{ url_for('edit_product', id=p.id) }}"
+                               class="btn btn-sm btn-outline-warning"
+                               title="Tahrirlash">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+
+                            <form method="POST"
+                                  action="{{ url_for('delete_product', id=p.id) }}"
+                                  onsubmit="return confirm('Mahsulotni o‘chirmoqchimisiz?')">
+                                <button type="submit"
+                                        class="btn btn-sm btn-outline-danger"
+                                        title="O'chirish">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+
+                {% else %}
+                <tr>
+                    <td colspan="9" class="text-center text-muted py-4">
+                        <i class="bi bi-box-seam fs-2 d-block mb-2"></i>
+                        Hozircha mahsulotlar mavjud emas.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

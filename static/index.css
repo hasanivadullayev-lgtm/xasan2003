@@ -1,0 +1,177 @@
+
+/* ==============================
+   OMBOR PRO - PREMIUM DESIGN
+================================ */
+
+:root {
+    --bg-main: #101114;
+    --bg-panel: #1b1c22;
+    --bg-sidebar: #18191e;
+    --gold: #e6b94f;
+    --gold-light: #f5cd70;
+    --text-main: #eeeeee;
+    --text-muted: #a5a5a5;
+    --border: #303039;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg-main);
+    color: var(--text-main);
+}
+
+/* PANEL */
+
+.panel {
+    transition: transform .25s ease, border-color .25s ease;
+}
+
+.panel:hover {
+    border-color: #66532c;
+}
+
+/* STATISTIKA */
+
+.stat-number {
+    letter-spacing: -1px;
+    font-size: clamp(22px, 3vw, 30px);
+}
+
+/* TUGMALAR */
+
+.btn {
+    transition: all .2s ease;
+}
+
+.btn-gold {
+    box-shadow: 0 4px 12px rgba(230, 185, 79, .12);
+}
+
+.btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(230, 185, 79, .2);
+}
+
+/* JADVALLAR */
+
+.table tbody tr {
+    transition: background .2s ease;
+}
+
+.table tbody tr:hover {
+    background: rgba(230, 185, 79, .045);
+}
+
+.table td,
+.table th {
+    vertical-align: middle;
+    padding: 14px 12px;
+}
+
+/* FORMALAR */
+
+.form-control,
+.form-select,
+textarea {
+    border-radius: 8px;
+    padding: 11px 13px;
+}
+
+.form-control::placeholder,
+textarea::placeholder {
+    color: #777;
+}
+
+.form-control:focus,
+.form-select:focus {
+    box-shadow: 0 0 0 3px rgba(230, 185, 79, .12);
+}
+
+/* BADGE */
+
+.badge {
+    padding: 7px 10px;
+    font-weight: 500;
+}
+
+/* ALERT */
+
+.alert {
+    border-radius: 10px;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #15161a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #62512e;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
+}
+
+/* PRINT */
+
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+
+    .sidebar,
+    button,
+    .btn {
+        display: none !important;
+    }
+
+    .main {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .panel {
+        background: white !important;
+        color: black !important;
+        border: 1px solid #ddd !important;
+    }
+
+    .table {
+        color: black !important;
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+    .main {
+        padding: 15px;
+    }
+
+    .panel {
+        padding: 16px;
+    }
+
+    .stat-number {
+        font-size: 24px;
+    }
+
+    .table {
+        min-width: 600px;
+    }
+}

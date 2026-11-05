@@ -1,0 +1,84 @@
+
+{% extends "base.html" %}
+
+{% block title %}Mahsulot formasi | Ombor Pro{% endblock %}
+{% block heading %}
+    {% if product %}Mahsulotni tahrirlash{% else %}Yangi mahsulot qo‘shish{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="panel">
+
+            <h5 class="text-warning mb-4">
+                <i class="bi bi-box-seam me-2"></i>
+                Mahsulot ma'lumotlari
+            </h5>
+
+            <form method="POST">
+
+                <div class="mb-3">
+                    <label class="form-label">Mahsulot nomi</label>
+                    <input type="text" name="name" class="form-control"
+                           placeholder="Masalan: Noutbuk"
+                           value="{{ product.name if product else '' }}"
+                           required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Kategoriya</label>
+                    <select name="category" class="form-select" required>
+                        <option value="">Kategoriyani tanlang</option>
+                        {% for cat in ['Elektronika', 'Oziq-ovqat', 'Kiyim-kechak', 'Maishiy texnika', 'Kanselyariya', 'Boshqa'] %}
+                        <option value="{{ cat }}"
+                            {% if product and product.category == cat %}selected{% endif %}>
+                            {{ cat }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Miqdori</label>
+                        <input type="number" name="quantity" class="form-control"
+                               min="0" value="{{ product.quantity if product else 0 }}"
+                               required>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Minimal qoldiq</label>
+                        <input type="number" name="min_stock" class="form-control"
+                               min="0" value="{{ product.min_stock if product else 5 }}"
+                               required>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Narxi (so'm)</label>
+                        <input type="number" name="price" class="form-control"
+                               min="0" step="0.01"
+                               value="{{ product.price if product else 0 }}"
+                               required>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2 mt-3">
+                    <button type="submit" class="btn btn-gold px-4">
+                        <i class="bi bi-check-circle me-2"></i>
+                        Saqlash
+                    </button>
+
+                    <a href="{{ url_for('products') }}"
+                       class="btn btn-outline-secondary">
+                        Bekor qilish
+                    </a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
