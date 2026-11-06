@@ -1,0 +1,22 @@
+
+name: Omborxona Docker CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  docker-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository kodini olish
+        uses: actions/checkout@v4
+
+      - name: Docker image yaratish
+        run: docker build -t omborxona-app:latest .
+
+      - name: Build muvaffaqiyatli
+        run: echo "Docker image muvaffaqiyatli yaratildi!"
